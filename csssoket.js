@@ -7,6 +7,7 @@ if (modeswitch) {
   } else {
     let cookieWindow = document.createElement('div');
     cookieWindow.classList.add('cookiewindow');
+    cookieWindow.classList.add('appear');
     document.body.appendChild(cookieWindow);
     cookieWindow.innerHTML =
       'We use cookies to save <br> your personalization eg for dark mode. <button id="agreebtn" onclick="windowClose()">Agree</button>';
