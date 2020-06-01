@@ -1,0 +1,265 @@
+/* This is "csssoket" a simple tool for Websites with 
+    darkmode and a clean modern design!
+    It functions with CSS-variables
+
+    in your html file you need to implement 
+    - <link rel="stylesheet" href="path/to/csssoket.css" />
+    and 
+    - <script src="path/to/csssoket.js"></script>
+
+    in your html side for the hole usage you can implement:
+    - <header> tag
+    - <nav>
+        <ul>
+            <li><a href="#">lorem</a></li>
+        </ul>
+        </nav> tag
+    - <main> tag
+    - <div class="nightmode"></div> tag
+    <div class="sidebar"></div> tag
+
+    v0.1
+    by TNTep82
+*/
+
+/*  ** shorts **
+    ff = fontfamily
+    fz = fontsize
+    fc = fontcolor
+    c = color
+    h = height
+    w = width
+    p = padding
+    d- = darkmode (eg.: --d-body-c)
+*/
+
+/* Defaults here */
+:root {
+  --all-ff: sans-serif;
+
+  --body-c: whitesmoke;
+  --header-c: steelblue;
+  --nav-c: steelblue;
+  --nightmode-c: steelblue;
+  --sidebar-c: steelblue;
+  --burger-c: steelblue;
+  --cookiewindow-c: steelblue;
+  --agreebtn-c: rgb(0, 200, 100);
+
+  --main-fc: black;
+  --header-fc: whitesmoke;
+  --nav-fc: whitesmoke;
+  --sidebar-fc: whitesmoke;
+
+  --body-fz: 1rem;
+  --header-fz: 5vh;
+
+  --header-h: 6vh;
+  --nav-h: 4vh;
+
+  --nav-ul-w: 90%;
+  --sidebar-w: 45vw;
+
+  --main-p: 1rem;
+}
+/* for darkmode Defaults here */
+.darkmode {
+  --body-c: #272727;
+  --header-c: #232323;
+  --nav-c: #232323;
+  --nightmode-c: #232323;
+  --sidebar-c: #232323;
+  --burger-c: #232323;
+  --cookiewindow-c: #232323;
+  --agreebtn-c: rgb(0, 200, 100);
+
+  --main-fc: #fdfdfd99;
+  --header-fc: #fdfdfd99;
+  --nav-fc: #fdfdfd99;
+  --sidebar-fc: #fdfdfd99;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--all-ff);
+  transition: background-color 0.4s linear;
+}
+
+body {
+  background-color: var(--body-c);
+  width: 100%;
+  min-height: 100vh;
+  font-size: var(--body-fz);
+}
+
+header {
+  background-color: var(--header-c);
+  height: var(--header-h);
+  width: 100vw;
+  color: var(--header-fc);
+  font-size: var(--header-fz);
+  letter-spacing: 3px;
+  font-weight: 500;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+nav {
+  background-color: var(--nav-c);
+  height: var(--nav-h);
+  width: 100vw;
+  filter: brightness(95%);
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  position: sticky;
+  top: 0px;
+
+  font-weight: 550;
+}
+
+nav ul {
+  width: var(--nav-ul-w);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+nav ul a {
+  text-decoration: none;
+  color: var(--nav-fc);
+  letter-spacing: 2px;
+}
+
+main {
+  padding: var(--main-p);
+  position: absolute;
+  top: calc(var(--header-h) + var(--nav-h));
+  color: var(--main-fc);
+}
+
+.nightmode {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  background-color: var(--nightmode-c);
+  border-radius: 50%;
+  bottom: 30px;
+  right: 30px;
+  background-image: url(./mode.svg);
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: brightness(80%);
+  cursor: pointer;
+  transition: transform 0.4s linear;
+  z-index: 1000;
+}
+
+.nightmode:hover {
+  filter: brightness(90%);
+}
+
+.nightmode.d-active {
+  transform: rotateZ(180deg);
+}
+
+.sidebar {
+  position: sticky;
+  top: var(--nav-h);
+  left: 0;
+  height: calc(100vh - var(--nav-h));
+  width: var(--sidebar-w);
+  background-color: var(--sidebar-c);
+  filter: brightness(75%);
+  transform: translateX(-105%);
+  z-index: 10000;
+  transition: all 0.4s linear;
+  padding: 1.4rem 0.5rem;
+  color: var(--sidebar-fc);
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+.closer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: calc(100vw - var(--sidebar-w));
+  height: 100vh;
+  background-color: transparent;
+  cursor: pointer;
+  transform: translateX(105%);
+}
+
+.closer.active {
+  transform: translateX(0);
+}
+
+.burger {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  background-color: var(--burger-c);
+  filter: brightness(80%);
+  bottom: 30px;
+  left: 30px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.burger div {
+  width: 60%;
+  height: 4px;
+  background-color: whitesmoke;
+  margin: 3px 0px;
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+.cookiewindow {
+  position: fixed;
+  max-width: 40vw;
+  min-height: 40px;
+  padding: 10px;
+  background-color: var(--cookiewindow-c);
+  right: 0px;
+  top: 50vh;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.disappear {
+  transition: transform 0.4s linear;
+}
+
+.cookiewindow.disappear {
+  transform: translateX(105%);
+  pointer-events: none;
+}
+
+#agreebtn {
+  border: hidden;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: var(--agreebtn-c);
+  font-weight: bold;
+  letter-spacing: 1px;
+  outline: none;
+}
